@@ -4,11 +4,29 @@ public class Pizza {
 
     private int price;
     private Boolean isVeg;
-    private String bill;
-
+    private boolean isCheeseAdded ;
+    private boolean isTakeAway;
+    private boolean isToppingAdded;
+    private boolean isBillGenerated;
+    private String bill ="";
+    private int extraCheese_Charge = 80;
+    private int takeAway_Charge = 20;
+    private int topping_Charge;
     public Pizza(Boolean isVeg){
+        this.isBillGenerated = false;
+        this.isCheeseAdded = false;
+        this.isToppingAdded= false;
+        this.isTakeAway = false;
         this.isVeg = isVeg;
-        // your code goes here
+        if(isVeg){
+            this.price = 300;
+            this.topping_Charge = 70;
+        }
+        else{
+            //Non-Veg pizza:
+            this.price = 400;
+            this.topping_Charge = 120;
+        }
     }
 
     public int getPrice(){
@@ -16,19 +34,41 @@ public class Pizza {
     }
 
     public void addExtraCheese(){
-        // your code goes here
+        if(!this.isCheeseAdded){
+            this.isCheeseAdded = true;
+            this.price+=this.extraCheese_Charge;
+        }
     }
 
     public void addExtraToppings(){
-        // your code goes here
+        if(!this.isToppingAdded){
+            this.isToppingAdded = true;
+            this.price += this.topping_Charge;
+        }
     }
 
     public void addTakeaway(){
-        // your code goes here
+        if(!this.isTakeAway){
+            this.isTakeAway = true;
+            this.price+= this.takeAway_Charge;
+        }
     }
 
     public String getBill(){
-        // your code goes here
+        if(!this.isBillGenerated) {
+            this.isBillGenerated = true;
+            if (this.isCheeseAdded) {
+                this.bill += "Extra Cheese Added: " + this.extraCheese_Charge + "\n";
+            }
+            if (this.isToppingAdded) {
+                this.bill += "Extra Toppings Added: " + this.topping_Charge + "\n";
+            }
+            if (this.isTakeAway) {
+                this.bill += "Paperbag Added: " + this.takeAway_Charge + "\n";
+            }
+            this.bill+="Total Price: "+ this.price +"\n";
+        }
+
         return this.bill;
     }
 }
